@@ -1,0 +1,10 @@
+# === Java / Spring Boot ===
+**/target/
+**/out/
+*.class
+*.jar
+*.war
+*.log
+
+# Ignore meta folder
+.metadata/
