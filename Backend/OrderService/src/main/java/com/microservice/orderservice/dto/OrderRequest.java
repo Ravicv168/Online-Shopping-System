@@ -3,18 +3,21 @@ import java.util.*;
 
 public class OrderRequest {
 
-	private List<OrderLineItems> orderLineItems;
-
-	public OrderRequest(List<OrderLineItems> orderLineItems) {
+	private List<OrderLineItemsDto> orderLineItems;
+	
+	public OrderRequest() {
+		// TODO Auto-generated constructor stub
+	}
+	public OrderRequest(List<OrderLineItemsDto> orderLineItems) {
 		super();
 		this.orderLineItems = orderLineItems;
 	}
 
-	public List<OrderLineItems> getOrderLineItems() {
+	public List<OrderLineItemsDto> getOrderLineItems() {
 		return orderLineItems;
 	}
 
-	public void setOrderLineItems(List<OrderLineItems> orderLineItems) {
+	public void setOrderLineItems(List<OrderLineItemsDto> orderLineItems) {
 		this.orderLineItems = orderLineItems;
 	}
 	

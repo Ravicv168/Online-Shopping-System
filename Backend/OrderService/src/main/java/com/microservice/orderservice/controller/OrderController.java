@@ -1,18 +1,24 @@
 package com.microservice.orderservice.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.orderservice.dto.OrderRequest;
+import com.microservice.orderservice.service.OrderService;
 
 @RestController
-@RequestMapping(name = "/api/order")
+@RequestMapping("/api/order")
 public class OrderController {
+	
+	@Autowired
+	private OrderService orderService;
 
 	@PostMapping
 	public String placeOrder(@RequestBody OrderRequest orderRequest) {
+		orderService.placeOrder(orderRequest);
 		return "Order Placed Successfully";
 	}
 }

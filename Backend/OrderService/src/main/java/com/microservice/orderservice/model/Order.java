@@ -20,13 +20,6 @@ public class Order {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<OrderLineItems> orderLineItems;
 	
-	public Order(Long id, String orderNumber, List<OrderLineItems> orderLineItems) {
-		super();
-		this.id = id;
-		this.orderNumber = orderNumber;
-		this.orderLineItems = orderLineItems;
-	}
-	
 	public Long getId() {
 		return id;
 	}

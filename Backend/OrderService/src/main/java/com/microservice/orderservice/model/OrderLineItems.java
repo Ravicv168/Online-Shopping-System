@@ -17,14 +17,6 @@ public class OrderLineItems {
 	private Double price;
 	private Integer quantity;
 	
-	public OrderLineItems(Long id, String skuCode, Double price, Integer quantity) {
-		super();
-		this.id = id;
-		this.skuCode = skuCode;
-		this.price = price;
-		this.quantity = quantity;
-	}
-	
 	public Long getId() {
 		return id;
 	}

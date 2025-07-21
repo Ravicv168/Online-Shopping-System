@@ -1,13 +1,17 @@
 package com.microservice.orderservice.dto;
 
-public class OrderLineItems {
+public class OrderLineItemsDto {
 
 	private Long id;
 	private String skuCode;
 	private Double price;
 	private Integer quantity;
 	
-	public OrderLineItems(Long id, String skuCode, Double price, Integer quantity) {
+	public OrderLineItemsDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public OrderLineItemsDto(Long id, String skuCode, Double price, Integer quantity) {
 		super();
 		this.id = id;
 		this.skuCode = skuCode;
