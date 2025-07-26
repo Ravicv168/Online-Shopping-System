@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.sleuth.Span;
 import org.springframework.cloud.sleuth.Tracer;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
@@ -30,6 +32,9 @@ public class OrderService {
 	@Autowired
 	private Tracer trace;
 
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
+	
 	public String placeOrder(OrderRequest orderRequest) {
 		Order order = new Order();
 		order.setOrderNumber(UUID.randomUUID().toString());
@@ -52,6 +57,7 @@ public class OrderService {
 			boolean allProductsInStock =  Arrays.stream(inventoryResponses).allMatch(inventoryResponse->inventoryResponse.isInStock());
 			if(allProductsInStock) {
 				orderRepository.save(order);
+				kafkaTemplate.send("order-events-notification-topic", "Order placed with id " + order.getOrderNumber());
 				return "Order Placed Successfully";
 			}else {
 				throw new IllegalArgumentException("Product not in stock, please try again later");
