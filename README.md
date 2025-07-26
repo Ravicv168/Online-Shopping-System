@@ -28,3 +28,6 @@ This is a microservices-based online shopping system built using Spring Boot, Sp
 - Zipkin (Distributed Tracing)
 - MySQL
 
+## Installation
+### Clone the repository
+    git clone https://github.com/Ravicv168/Online-Shopping-System.git
