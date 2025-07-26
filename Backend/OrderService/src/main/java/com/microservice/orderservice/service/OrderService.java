@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.sleuth.Span;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
@@ -24,6 +26,9 @@ public class OrderService {
 	
 	@Autowired
 	private WebClient.Builder webClient;
+	
+	@Autowired
+	private Tracer trace;
 
 	public String placeOrder(OrderRequest orderRequest) {
 		Order order = new Order();
@@ -35,19 +40,26 @@ public class OrderService {
 		List<String> skuCodes = order.getOrderLineItems().stream().map(orderLineItem->orderLineItem.getSkuCode())
 		.toList();
 		
-		InventoryResponse[] inventoryResponses  =  webClient.build().get().uri("http://InventoryService/api/inventory",
-				UriBuilder->UriBuilder.queryParam("skuCode", skuCodes).build())
-		.retrieve()
-		.bodyToMono(InventoryResponse[].class)
-		.block();
+		Span inventoryServiceLookup= trace.nextSpan().name("InventoryServiceLookup");
 		
-		boolean allProductsInStock =  Arrays.stream(inventoryResponses).allMatch(inventoryResponse->inventoryResponse.isInStock());
-		if(allProductsInStock) {
-			orderRepository.save(order);
-			return "Order Placed Successfully";
-		}else {
-			throw new IllegalArgumentException("Product not in stock, please try again later");
+		try(Tracer.SpanInScope spanInScope = trace.withSpan(inventoryServiceLookup.start())){
+			InventoryResponse[] inventoryResponses  =  webClient.build().get().uri("http://InventoryService/api/inventory",
+					UriBuilder->UriBuilder.queryParam("skuCode", skuCodes).build())
+			.retrieve()
+			.bodyToMono(InventoryResponse[].class)
+			.block();
+			
+			boolean allProductsInStock =  Arrays.stream(inventoryResponses).allMatch(inventoryResponse->inventoryResponse.isInStock());
+			if(allProductsInStock) {
+				orderRepository.save(order);
+				return "Order Placed Successfully";
+			}else {
+				throw new IllegalArgumentException("Product not in stock, please try again later");
+			}
+		}finally {
+			inventoryServiceLookup.end();
 		}
+		
 		
 	}
 	
