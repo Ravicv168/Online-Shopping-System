@@ -40,3 +40,8 @@ This is a microservices-based online shopping system built using Spring Boot, Sp
 - Start API Gateway
 - Access services through Gateway (e.g., localhost:8080/api/product)
 - Use Zipkin UI (http://localhost:9411) to trace requests
+
+## 🚀 Future Enhancements
+- Add frontend
+- Add Prometheus & Grafana for monitoring
+- Containerize with Docker Compose
