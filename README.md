@@ -31,3 +31,12 @@ This is a microservices-based online shopping system built using Spring Boot, Sp
 ## Installation
 ### Clone the repository
     git clone https://github.com/Ravicv168/Online-Shopping-System.git
+
+## How to Run:
+- Start Kafka/Zookeeper
+- Run Zipkin
+- Start Service Discovery
+- Run each microservice (Product, Inventory, Order, Notification)
+- Start API Gateway
+- Access services through Gateway (e.g., localhost:8080/api/product)
+- Use Zipkin UI (http://localhost:9411) to trace requests
