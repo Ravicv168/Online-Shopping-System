@@ -2,7 +2,7 @@
 
 This is a microservices-based online shopping system built using Spring Boot, Spring Cloud, Kafka, and other cloud-native tools.
 
-## Features
+## ✨ Features
 - 📦 Product Management (Add/View Products)
 - 🛒 Order Placement (checks inventory before placing)
 - 🔁 Async Event Notification using Kafka
