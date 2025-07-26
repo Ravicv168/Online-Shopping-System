@@ -17,22 +17,20 @@ This is a microservices-based online shopping system built using Spring Boot, Sp
 | Order Service | Kafka     | Producer         | Publish order event      |
 | Notification  | Kafka     | Consumer         | Listen for new orders    |
 
-## ⚙️ Tech Stack
-- Java
-- Spring Boot
-- Spring Cloud
-- Spring Data JPA
-- Eureka Discovery Server
-- Spring Cloud Gateway
-- Kafka
-- Zipkin (Distributed Tracing)
-- MySQL
+## 🛠️ Tech Stack
+- **Java**
+- **Spring Boot** (Microservices Architecture)
+- **Spring Cloud** (Eureka, Gateway, Circuit Breaker)
+- **Kafka** (Event-driven communication)
+- **Zipkin** (Distributed Tracing)
+- **MySQL** (Database)
+- **Maven** (Build automation)
 
-## Installation
+## 💾 Installation
 ### Clone the repository
     git clone https://github.com/Ravicv168/Online-Shopping-System.git
 
-## How to Run:
+## 🚀 How to Run:
 - Start Kafka/Zookeeper
 - Run Zipkin
 - Start Service Discovery
