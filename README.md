@@ -9,3 +9,11 @@ This is a microservices-based online shopping system built using Spring Boot, Sp
 - 💥 Circuit Breaker for fallback
 - 📉 Distributed Tracing with Zipkin
 - ⚙️ Dynamic service registration and routing
+
+## 🔗 Communication Between Services
+| From          | To        | Method           | Purpose                  |
+| ------------- | --------- | ---------------- | ------------------------ |
+| Order Service | Inventory | WebClient (HTTP) | Check stock availability |
+| Order Service | Kafka     | Producer         | Publish order event      |
+| Notification  | Kafka     | Consumer         | Listen for new orders    |
+
