@@ -45,7 +45,7 @@ This is a microservices-based online shopping system built using Spring Boot, Sp
 - Add the proucts: POST /api/product
 - Get all products: GET /api/product
 - Place order: `POST /api/order`
-- **Check inventory**: `GET /api/inventory
+- **Check inventory**: `GET /api/inventory`
 
 ## 🚀 Future Enhancements
 - Add frontend
