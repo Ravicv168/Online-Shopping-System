@@ -42,7 +42,7 @@ This is a microservices-based online shopping system built using Spring Boot, Sp
 - Use Zipkin UI (http://localhost:9411) to trace requests
 
 ## 🌐 API Gateway Endpoints
-- **Add the proucts**: `POST /api/product`
+- **Add the products**: `POST /api/product`
 - **Get all products**: `GET /api/product`
 - **Place order**: `POST /api/order`
 - **Check inventory**: `GET /api/inventory`
