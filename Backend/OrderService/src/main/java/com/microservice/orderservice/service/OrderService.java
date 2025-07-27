@@ -15,6 +15,7 @@ import org.springframework.web.util.UriBuilder;
 
 import com.microservice.orderservice.dto.InventoryResponse;
 import com.microservice.orderservice.dto.OrderLineItemsDto;
+import com.microservice.orderservice.dto.OrderPlacedEvent;
 import com.microservice.orderservice.dto.OrderRequest;
 import com.microservice.orderservice.model.Order;
 import com.microservice.orderservice.model.OrderLineItems;
@@ -33,7 +34,7 @@ public class OrderService {
 	private Tracer trace;
 
 	@Autowired
-	private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 	
 	public String placeOrder(OrderRequest orderRequest) {
 		Order order = new Order();
@@ -57,7 +58,7 @@ public class OrderService {
 			boolean allProductsInStock =  Arrays.stream(inventoryResponses).allMatch(inventoryResponse->inventoryResponse.isInStock());
 			if(allProductsInStock) {
 				orderRepository.save(order);
-				kafkaTemplate.send("order-events-notification-topic", "Order placed with id " + order.getOrderNumber());
+				kafkaTemplate.send("order-events-notification-topic", new OrderPlacedEvent(order.getOrderNumber(), orderRequest.getEmail()));
 				return "Order Placed Successfully";
 			}else {
 				throw new IllegalArgumentException("Product not in stock, please try again later");
